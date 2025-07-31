@@ -1,0 +1,17 @@
+html {
+  scroll-behavior: smooth;
+}
+.section {
+  padding: 60px 0;
+}
+.navbar-fixed {
+  z-index: 1000;
+}
+.navbar-brand {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+}
