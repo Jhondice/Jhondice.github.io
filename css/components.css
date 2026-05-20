@@ -1,0 +1,279 @@
+/* =========================================================
+   components.css — Componentes reutilizables de UI
+   ========================================================= */
+
+/* ── Panel base ──────────────────────────────────────── */
+.pnl {
+  background: var(--P);
+  border-radius: 10px;
+  border: 1px solid var(--E);
+}
+
+/* ── Botones ─────────────────────────────────────────── */
+.btn {
+  border: none;
+  border-radius: 7px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: filter 0.2s;
+  white-space: nowrap;
+}
+
+.btn:hover    { filter: brightness(1.1); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; filter: none; }
+
+/* Variantes de color */
+.bg { background: var(--G); color: #fff; }
+.bb { background: var(--B); color: #fff; }
+.br { background: var(--R); color: #fff; }
+.bd { background: var(--E); color: #aaa; }
+
+/* Tamaño pequeño */
+.sm { padding: 5px 10px; font-size: 11px; border-radius: 5px; }
+
+/* Botón destructivo (rojo suave) */
+.btn-danger { background: #3a1e1e; color: var(--R); }
+
+/* ── Zonas de carga ──────────────────────────────────── */
+.upz {
+  border: 2px dashed var(--E);
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  flex: 1;
+  min-width: 180px;
+}
+
+.upz:hover { border-color: var(--G); }
+
+.upz-icon  { font-size: 28px; margin-bottom: 8px; }
+.upz-title { font-weight: bold; margin-bottom: 4px; }
+.upz-sub   { font-size: 12px; color: #777; }
+.upz-hint  { font-size: 11px; color: #555; margin-top: 3px; }
+
+/* ── Panel de información de columnas ────────────────── */
+.info-panel {
+  padding: 16px;
+  min-width: 200px;
+}
+
+.info-panel-title {
+  font-size: 12px;
+  color: var(--G);
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+
+.logo-up-label {
+  margin-top: 11px;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.logo-up-hint {
+  font-size: 10px;
+  color: #444;
+  margin-top: 4px;
+}
+
+/* ── Columnas requeridas (lista) ─────────────────────── */
+.rcol {
+  font-size: 12px;
+  color: #aaa;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--E);
+}
+
+.rcol-last  { border: none; }
+.rcol-note  { color: #555; font-size: 10px; }
+
+/* ── Grupos de formulario ────────────────────────────── */
+.fgrp {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fgrp label { font-size: 12px; color: #888; }
+
+/* Estado de error en campos */
+.ferr { border-color: var(--R) !important; }
+
+.fmsg {
+  font-size: 11px;
+  color: var(--R);
+  margin-top: 3px;
+  display: none;
+}
+
+/* ── Badges / etiquetas ──────────────────────────────── */
+.bdg {
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.bg-g { background: rgba(57, 169, 0, 0.15); color: var(--G); }
+.bg-r { background: rgba(192, 57, 43, 0.15); color: var(--R); }
+.bg-b { background: rgba(0, 61, 165, 0.2);   color: #5b8dee; }
+
+/* ── Barra de progreso global (top) ──────────────────── */
+#pgbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--G);
+  z-index: 9998;
+  transition: width 0.3s;
+  display: none;
+}
+
+/* ── Toast de notificaciones ─────────────────────────── */
+#toast {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 9999;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  display: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  max-width: 320px;
+}
+
+.tok  { background: #1e3a1e; border: 1px solid var(--G); color: var(--G); display: block !important; }
+.terr { background: #3a1e1e; border: 1px solid var(--R); color: var(--R); display: block !important; }
+.twrn { background: #2e2a1a; border: 1px solid #e6a817; color: #e6a817;  display: block !important; }
+
+/* ── Miniaturas (thumbnails) de carnet ───────────────── */
+.thi {
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  display: inline-block;
+}
+
+.thi:hover { border-color: rgba(57, 169, 0, 0.5); }
+.thi.on    { border-color: var(--G); }
+
+/* ── Tabla vacía ─────────────────────────────────────── */
+.table-empty {
+  padding: 36px;
+  text-align: center;
+  color: #444;
+}
+
+/* ── Panel info de carnet ────────────────────────────── */
+.cinfo-title { color: var(--G); font-weight: bold; margin-bottom: 10px; font-size: 13px; }
+.cinfo-empty { color: #555; padding: 16px; text-align: center; }
+
+/* ── Navegación de carnets ───────────────────────────── */
+.nav-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.nav-count {
+  flex: 2;
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+  align-self: center;
+  white-space: nowrap;
+}
+
+/* ── Lista lateral de carnets ────────────────────────── */
+.carnets-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* ── Secciones tab Diseño ────────────────────────────── */
+.design-config-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--G);
+  margin-bottom: 16px;
+}
+
+.design-section { margin-bottom: 16px; }
+
+.design-section-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.color-presets {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.color-custom-label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.color-picker {
+  width: 100%;
+  height: 36px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Info técnica CR80 */
+.cr80-info {
+  background: #1e2235;
+  border-radius: 8px;
+  padding: 13px;
+  font-size: 12px;
+  color: #777;
+  border: 1px solid var(--E);
+}
+
+.cr80-title {
+  color: var(--G);
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.cr80-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--E);
+}
+
+.cr80-row-last { border: none; }
+.cr80-val      { color: #aaa; }
+
+/* Vista previa diseño */
+.design-preview-label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 14px;
+}
+
+.design-preview-hint {
+  margin-top: 12px;
+  font-size: 11px;
+  color: #555;
+}

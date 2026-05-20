@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Carnets SENA — Articulación Media Técnica</title>
+
+  <!-- Librerías externas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/carnet.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- Barra de progreso global (top) -->
+<div id="pgbar"></div>
+
+<!-- Toast de notificaciones -->
+<div id="toast"></div>
+
+<!-- Modal de progreso PDF masivo -->
+<div id="prgmdl">
+  <div class="prgbox">
+    <div class="prg-title">📦 Generando PDF</div>
+    <div id="prgtxt" class="prg-sub">Procesando...</div>
+    <div class="prgtrack"><div class="prgfill" id="prgfill"></div></div>
+    <div id="prgnum" class="prg-num">0 / 0</div>
+  </div>
+</div>
+
+<div id="wrap">
+
+  <!-- ════ HEADER ════ -->
+  <div id="hdr">
+    <img id="logoimg" src="assets/img/logosena.png" alt="SENA"
+      onerror="this.style.display='none';document.querySelector('.nologo').style.display='block'">
+    <span class="nologo">SENA</span>
+    <div>
+      <div class="ht">Generador de Carnets — Articulación Media Técnica</div>
+      <div class="hs">Regional Huila · Centro de la Industria, la Empresa y los Servicios</div>
+    </div>
+    <div class="hc" id="hcount">0 aprendices</div>
+  </div>
+
+  <!-- ════ TABS ════ -->
+  <div id="tabbar">
+    <button class="tab on" onclick="goTab('datos',this)">📊 Datos</button>
+    <button class="tab" onclick="goTab('diseno',this)">⚙️ Diseño</button>
+    <button class="tab" onclick="goTab('carnets',this)">🪪 Carnets</button>
+  </div>
+
+  <div id="app">
+
+    <!-- ══════════════ TAB DATOS ══════════════ -->
+    <div id="tab-datos">
+      <div class="upload-row">
+
+        <!-- Zona carga CSV/Excel -->
+        <div class="upz pnl" onclick="document.getElementById('finp').click()">
+          <div class="upz-icon">📊</div>
+          <div class="upz-title">Cargar Excel / CSV</div>
+          <div class="upz-sub">Haz clic · .xlsx · .xls · .csv</div>
+          <input id="finp" type="file" accept=".csv,.xlsx,.xls" style="display:none" onchange="onCSV(this)">
+        </div>
+
+        <!-- Zona carga fotos masivas -->
+        <div class="upz pnl" onclick="document.getElementById('fimgs').click()">
+          <div class="upz-icon">📷</div>
+          <div class="upz-title">Cargar Fotos Masivas</div>
+          <div class="upz-sub">Nombre archivo = N° documento</div>
+          <div class="upz-hint">Ej: 1075678901.jpg</div>
+          <input id="fimgs" type="file" accept="image/*" multiple style="display:none" onchange="onImgs(this)">
+        </div>
+
+        <!-- Panel info + acciones -->
+        <div class="pnl info-panel">
+          <div class="info-panel-title">📋 Columnas requeridas</div>
+          <div class="rcol">▸ nombre</div>
+          <div class="rcol">▸ documento</div>
+          <div class="rcol">▸ rh &nbsp;<span class="rcol-note">(O+, A-, B+…)</span></div>
+          <div class="rcol">▸ programa</div>
+          <div class="rcol rcol-last">▸ ficha</div>
+          <button class="btn bg sm" style="margin-top:11px;width:100%" onclick="dlTemplate()">⬇ Plantilla Excel (.xlsx)</button>
+          <div class="logo-up-label">Logo institucional:</div>
+          <button class="btn bd sm" style="width:100%" onclick="document.getElementById('flogoUp').click()">🖼 Subir logosena.png</button>
+          <input id="flogoUp" type="file" accept="image/*" style="display:none" onchange="onLogoUp(this)">
+          <div class="logo-up-hint">O coloca logosena.png en /assets/img/</div>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filter-row">
+        <select id="fprog" onchange="syncFilter('prog',this.value)" style="width:auto;min-width:180px">
+          <option value="">Todos los programas</option>
+        </select>
+        <select id="ffich" onchange="syncFilter('fich',this.value)" style="width:auto">
+          <option value="">Todas las fichas</option>
+        </select>
+        <span id="fcnt" class="filter-count"></span>
+        <button class="btn bd sm" style="margin-left:auto" onclick="addNewRow()">➕ Agregar</button>
+        <button class="btn sm btn-danger" onclick="clearAll()">🗑 Limpiar todo</button>
+      </div>
+
+      <!-- Tabla -->
+      <div class="pnl" style="overflow:auto">
+        <table>
+          <thead><tr>
+            <th style="width:32px">#</th>
+            <th style="width:38px">Foto</th>
+            <th>Nombre Completo</th>
+            <th>Documento</th>
+            <th style="width:55px">RH</th>
+            <th>Programa</th>
+            <th style="width:75px">Ficha</th>
+            <th style="width:110px">Acciones</th>
+          </tr></thead>
+          <tbody id="tbl"></tbody>
+        </table>
+        <div id="tempty" class="table-empty">
+          Carga un archivo Excel / CSV o agrega aprendices manualmente.
+        </div>
+      </div>
+    </div><!-- /tab-datos -->
+
+    <!-- ══════════════ TAB DISEÑO ══════════════ -->
+    <div id="tab-diseno" style="display:none">
+      <div class="design-layout">
+
+        <!-- Panel config -->
+        <div class="design-config">
+          <div class="pnl" style="padding:18px">
+            <div class="design-config-title">⚙️ Configuración Visual</div>
+
+            <div class="design-section">
+              <div class="design-section-label">Barra Superior</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn bg sm" id="bon" onclick="setBar(true)" style="flex:1">✅ Activada</button>
+                <button class="btn bd sm" id="boff" onclick="setBar(false)" style="flex:1">❌ Desactivada</button>
+              </div>
+            </div>
+
+            <div id="csec" class="design-section">
+              <div class="design-section-label">Color de Barra</div>
+              <div class="color-presets">
+                <button class="btn sm cpbtn" id="cpv" style="background:#39A900;color:#fff" onclick="setColor('#39A900')">Verde</button>
+                <button class="btn sm cpbtn" id="cpb" style="background:#003DA5;color:#fff" onclick="setColor('#003DA5')">Azul</button>
+                <button class="btn sm cpbtn" id="cpw" style="background:#fff;color:#333;border:1px solid #ccc" onclick="setColor('#FFFFFF')">Blanco</button>
+              </div>
+              <div class="color-custom-label">Color personalizado:</div>
+              <input type="color" id="cpick" value="#39A900" class="color-picker" oninput="setColor(this.value)">
+            </div>
+
+            <div class="cr80-info">
+              <div class="cr80-title">📏 CR80 / ISO 7810 ID-1</div>
+              <div class="cr80-row"><span>Ancho</span><span class="cr80-val">53.98 mm</span></div>
+              <div class="cr80-row"><span>Alto</span><span class="cr80-val">85.60 mm</span></div>
+              <div class="cr80-row"><span>Orientación</span><span class="cr80-val">Vertical</span></div>
+              <div class="cr80-row"><span>Resolución</span><span class="cr80-val">300 DPI mín.</span></div>
+              <div class="cr80-row cr80-row-last"><span>Compatible</span><span class="cr80-val">Zebra · Evolis · Fargo</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vista previa diseño -->
+        <div class="design-preview">
+          <div class="design-preview-label">👁 Vista previa en tiempo real — Escala 1:1 aproximada</div>
+          <div id="dprev"></div>
+          <div class="design-preview-hint">Aprendiz de muestra: primer registro cargado</div>
+        </div>
+      </div>
+    </div><!-- /tab-diseno -->
+
+    <!-- ══════════════ TAB CARNETS ══════════════ -->
+    <div id="tab-carnets" style="display:none">
+      <div class="carnets-toolbar">
+        <button class="btn bg" id="btnPrint" onclick="doPrint()">🖨️ Imprimir actual</button>
+        <button class="btn bb" id="btnPDF" onclick="doPDF()">📄 PDF actual</button>
+        <button class="btn bd" id="btnAllPDF" onclick="doAllPDF()">📦 Exportar todos PDF</button>
+        <div class="carnets-filters">
+          <select id="cprog" onchange="syncFilter('prog',this.value)" style="width:auto;min-width:170px"><option value="">Todos los programas</option></select>
+          <select id="cfich" onchange="syncFilter('fich',this.value)" style="width:auto"><option value="">Todas las fichas</option></select>
+        </div>
+      </div>
+
+      <div class="carnets-viewer">
+
+        <!-- Lista lateral -->
+        <div class="carnets-list-col">
+          <div class="nav-controls">
+            <button onclick="nav(-1)" class="btn bd" style="flex:1;padding:7px;justify-content:center">◀</button>
+            <div id="navcnt" class="nav-count">0 / 0</div>
+            <button onclick="nav(1)" class="btn bd" style="flex:1;padding:7px;justify-content:center">▶</button>
+          </div>
+          <div class="pnl carnets-list" id="clist"></div>
+        </div>
+
+        <!-- Vista grande -->
+        <div class="carnets-big" id="cbig"></div>
+
+        <!-- Info panel -->
+        <div class="carnets-info-col">
+          <div class="pnl" style="padding:15px;font-size:12px" id="cinfo">
+            <div class="cinfo-title">Info del Carnet</div>
+            <div class="cinfo-empty">Selecciona un aprendiz</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thumbs-count" id="tcnt"></div>
+      <div class="thumbs-grid" id="tgrid"></div>
+    </div><!-- /tab-carnets -->
+
+  </div><!-- /app -->
+</div><!-- /wrap -->
+
+<!-- ════ FOOTER INSTITUCIONAL (NO se imprime) ════ -->
+<footer id="footer">
+  <p>
+    <strong>Creado por MG JHONAIMER DIAZ CERQUERA</strong><br>
+    Instructor — Programa Ingeniería de Software · 2026
+  </p>
+</footer>
+
+<!-- ══════════════ MODAL EDITAR ══════════════ -->
+<div id="mdl" onclick="mdlOut(event)">
+  <div class="mbox">
+    <div class="modal-header">
+      <div class="modal-title" id="mdltitle">✏️ Editar Aprendiz</div>
+      <button class="btn bd sm" onclick="closeMdl()">✕ Cerrar</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-form-col">
+        <div class="modal-form-grid" id="mform"></div>
+      </div>
+      <div class="modal-photo-col">
+        <div class="photo-label">Foto del aprendiz</div>
+        <div id="mfphoto" class="photo-preview">SIN<br>FOTO</div>
+        <button class="btn bd sm" onclick="document.getElementById('mfotoinp').click()">📷 Cambiar foto</button>
+        <input type="file" id="mfotoinp" accept="image/*" style="display:none" onchange="onMFoto(this)">
+        <div class="photo-hint">Vista previa</div>
+        <div id="mprev"></div>
+      </div>
+    </div>
+    <div id="merrors" class="modal-errors" style="display:none"></div>
+    <div class="modal-footer">
+      <button class="btn bd" onclick="closeMdl()">Cancelar</button>
+      <button class="btn bg" onclick="saveEdit()">💾 Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ JAVASCRIPT MODULES ══════════════ -->
+<script src="js/config/constants.js"></script>
+<script src="js/config/programs.js"></script>
+<script src="js/state.js"></script>
+<script src="js/utils/dom.js"></script>
+<script src="js/utils/format.js"></script>
+<script src="js/utils/normalize.js"></script>
+<script src="js/utils/validators.js"></script>
+<script src="js/utils/barcode.js"></script>
+<script src="js/render/carnet.render.js"></script>
+<script src="js/render/table.render.js"></script>
+<script src="js/render/list.render.js"></script>
+<script src="js/render/preview.render.js"></script>
+<script src="js/render/info.render.js"></script>
+<script src="js/render/design.render.js"></script>
+<script src="js/services/import.service.js"></script>
+<script src="js/services/image.service.js"></script>
+<script src="js/services/export.service.js"></script>
+<script src="js/services/pdf.service.js"></script>
+<script src="js/services/print.service.js"></script>
+<script src="js/features/filters.js"></script>
+<script src="js/features/modal.js"></script>
+<script src="js/features/learners.js"></script>
+<script src="js/features/design.js"></script>
+<script src="js/features/template.js"></script>
+<script src="js/features/navigation.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

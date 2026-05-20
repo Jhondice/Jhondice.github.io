@@ -1,0 +1,34 @@
+[
+  {
+    "nombre": "ANDREA VALENTINA TORRES PEÑA",
+    "documento": "1075678901",
+    "rh": "O+",
+    "programa": "PROGRAMACION DE SOFTWARE",
+    "ficha": "2987654",
+    "ano": 2025
+  },
+  {
+    "nombre": "CARLOS ANDRES MUÑOZ SILVA",
+    "documento": "1075234567",
+    "rh": "A+",
+    "programa": "CONTABILIZACION DE OPERACIONES COMERCIALES Y FINANCIERAS",
+    "ficha": "2987654",
+    "ano": 2025
+  },
+  {
+    "nombre": "LAURA JIMENA VARGAS OSPINA",
+    "documento": "1075345678",
+    "rh": "B+",
+    "programa": "SISTEMAS TELEINFORMATICOS",
+    "ficha": "2987655",
+    "ano": 2024
+  },
+  {
+    "nombre": "JHON ALEXANDER MOLINA TRUJILLO",
+    "documento": "1075456789",
+    "rh": "AB+",
+    "programa": "ASISTENCIA ADMINISTRATIVA",
+    "ficha": "2987655",
+    "ano": 2024
+  }
+]

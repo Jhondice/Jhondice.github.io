@@ -1,0 +1,85 @@
+/* =========================================================
+   base.css — Reset, variables y estilos base del documento
+   ========================================================= */
+
+/* Variables globales de color y diseño */
+:root {
+  --G: #39A900;  /* Verde SENA */
+  --B: #003DA5;  /* Azul SENA */
+  --D: #0f1117;  /* Fondo oscuro principal */
+  --P: #1a1d27;  /* Fondo panel */
+  --E: #2a2e3d;  /* Borde / fondo alternado */
+  --R: #c0392b;  /* Rojo error/peligro */
+}
+
+/* Reset básico */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Documento base */
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--D);
+  color: #e0e0e0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tipografía base de formularios */
+select,
+input[type="text"],
+input[type="number"] {
+  background: var(--P);
+  color: #ddd;
+  border: 1px solid var(--E);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 13px;
+  width: 100%;
+}
+
+select:focus,
+input:focus {
+  outline: none;
+  border-color: var(--G);
+}
+
+/* Tabla base */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th {
+  padding: 9px 12px;
+  text-align: left;
+  color: #666;
+  font-weight: 600;
+  font-size: 11px;
+  background: #1e2235;
+  white-space: nowrap;
+}
+
+td {
+  padding: 7px 11px;
+  border-top: 1px solid var(--E);
+  vertical-align: middle;
+}
+
+tr:hover td {
+  background: #1e2235;
+  cursor: pointer;
+}
+
+tr.sel td {
+  background: #1a2e1a;
+}

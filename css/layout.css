@@ -1,0 +1,181 @@
+/* =========================================================
+   layout.css — Estructura global: header, tabs, app, footer
+   ========================================================= */
+
+/* Contenedor principal (empuja footer al fondo) */
+#wrap {
+  flex: 1;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+#hdr {
+  background: var(--G);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#hdr img {
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Texto "SENA" cuando no carga el logo */
+#hdr .nologo {
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  display: none;
+}
+
+#hdr .ht {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+#hdr .hs {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 2px;
+}
+
+#hdr .hc {
+  margin-left: auto;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 3px 14px;
+  font-size: 12px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ── Barra de tabs ───────────────────────────────────── */
+#tabbar {
+  background: var(--P);
+  border-bottom: 1px solid var(--E);
+  display: flex;
+  padding: 0 20px;
+}
+
+/* ── Área de contenido principal ─────────────────────── */
+#app {
+  padding: 16px 20px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+/* ── Footer institucional ────────────────────────────── */
+#footer {
+  background: #111418;
+  border-top: 1px solid var(--E);
+  padding: 12px 20px;
+  text-align: center;
+}
+
+#footer p {
+  font-size: 11px;
+  color: #4a5060;
+  line-height: 1.7;
+}
+
+#footer strong {
+  color: #5a6070;
+  font-weight: 600;
+}
+
+/* ── Zona de carga (upload row) ──────────────────────── */
+.upload-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* ── Fila de filtros ─────────────────────────────────── */
+.filter-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 11px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-count {
+  font-size: 12px;
+  color: #666;
+}
+
+/* ── Layout tab Diseño ───────────────────────────────── */
+.design-layout {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.design-config {
+  width: 270px;
+  flex-shrink: 0;
+  min-width: 200px;
+}
+
+.design-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Layout tab Carnets ──────────────────────────────── */
+.carnets-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.carnets-filters {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.carnets-viewer {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.carnets-list-col {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.carnets-big {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.carnets-info-col {
+  width: 190px;
+  flex-shrink: 0;
+}
+
+.thumbs-count {
+  font-size: 13px;
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.thumbs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}

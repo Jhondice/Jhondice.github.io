@@ -1,0 +1,29 @@
+/* =========================================================
+   responsive.css — Ajustes para pantallas pequeñas
+   ========================================================= */
+
+@media (max-width: 700px) {
+  #hdr {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  #hdr .ht { font-size: 12px; }
+  #hdr .hs { font-size: 10px; }
+  #hdr .hc { display: none; }
+
+  #tabbar   { padding: 0 8px; }
+  .tab      { padding: 9px 10px; font-size: 12px; }
+
+  #app      { padding: 10px 10px; }
+
+  .design-config { width: 100%; }
+  .carnets-list-col,
+  .carnets-info-col { width: 100%; }
+
+  .modal-form-grid { grid-template-columns: 1fr; }
+  .modal-photo-col { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; }
+
+  .carnets-toolbar { gap: 6px; }
+  .carnets-filters { margin-left: 0; }
+}

@@ -1,0 +1,25 @@
+/* =========================================================
+   carnet.css — Estilos de impresión y ventana de carnet
+   El carnet en sí se genera como HTML inline (mkCarnet),
+   pero los estilos de @page para la ventana de impresión
+   van aquí como referencia. La lógica real está en
+   js/services/print.service.js.
+   ========================================================= */
+
+/*
+  Nota: el carnet individual se renderiza como un bloque
+  HTML inline con estilos embebidos (generado por mkCarnet).
+  Este archivo documenta las clases CSS auxiliares
+  usadas en la ventana de impresión separada.
+*/
+
+/*
+  @page CR80 — se aplica desde print.service.js
+  en la ventana emergente de impresión:
+
+  @page {
+    size: 53.98mm 85.60mm;
+    margin: 0;
+    padding: 0;
+  }
+*/

@@ -1,0 +1,161 @@
+/* =========================================================
+   modal.css — Estilos del modal de edición/creación
+   ========================================================= */
+
+/* Fondo overlay */
+#mdl {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 990;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* Caja del modal */
+.mbox {
+  background: var(--P);
+  border-radius: 12px;
+  border: 1px solid var(--E);
+  padding: 22px;
+  max-width: 740px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+/* Encabezado del modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--G);
+}
+
+/* Cuerpo del modal (formulario + foto) */
+.modal-body {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.modal-form-col {
+  flex: 1;
+  min-width: 260px;
+}
+
+.modal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Columna de foto */
+.modal-photo-col {
+  width: 170px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.photo-label {
+  font-size: 12px;
+  color: #888;
+}
+
+.photo-preview {
+  width: 100px;
+  height: 116px;
+  background: var(--E);
+  border: 2px solid var(--G);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #666;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.photo-hint {
+  font-size: 11px;
+  color: #555;
+  text-align: center;
+}
+
+/* Bloque de errores de validación */
+.modal-errors {
+  background: #3a1e1e;
+  border: 1px solid var(--R);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--R);
+}
+
+/* Pie del modal (botones) */
+.modal-footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ── Modal de progreso PDF masivo ────────────────────── */
+#prgmdl {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 995;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.prgbox {
+  background: var(--P);
+  border-radius: 12px;
+  padding: 28px 36px;
+  text-align: center;
+  min-width: 300px;
+  border: 1px solid var(--E);
+}
+
+.prg-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--G);
+  margin-bottom: 6px;
+}
+
+.prg-sub  { font-size: 12px; color: #888; }
+.prg-num  { font-size: 12px; color: #666; }
+
+.prgtrack {
+  background: var(--E);
+  border-radius: 99px;
+  height: 8px;
+  margin: 14px 0 8px;
+  overflow: hidden;
+}
+
+.prgfill {
+  background: var(--G);
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.3s;
+  width: 0%;
+}
